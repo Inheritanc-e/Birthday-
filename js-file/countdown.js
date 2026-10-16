@@ -17,7 +17,7 @@ window.CountdownScene = {
         const targetOverride = params.get("target");
 
         if (targetOverride === null) {
-            this.TARGET_DATE = new Date("2026-10-17T00:00:00+06:00").getTime();
+            this.TARGET_DATE = new Date("2026-10-17T00:20:00+05:45").getTime();
             console.log("[countdown] PRODUCTION. Target:",
                 new Date(this.TARGET_DATE).toString());
         } else if (targetOverride === "now") {

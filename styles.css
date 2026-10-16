@@ -1,0 +1,318 @@
+/* ===== FONTS ===== */
+@font-face {
+    font-family: "Fuzzy Bubbles";
+    src: url("resources/fonts/FuzzyBubbles-Bold.ttf") format("truetype");
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Fuzzy Bubbles";
+    src: url("resources/fonts/FuzzyBubbles-Regular.ttf") format("truetype");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* ===== BASE ===== */
+:root {
+    --text-muted: rgba(255, 255, 255, 0.55);
+    --font-timer: "Fuzzy Bubbles", "Baloo 2", "Comic Sans MS", cursive;
+    --font-main: "Inter", system-ui, -apple-system, sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    height: 100%;
+    overflow: hidden;
+}
+
+body {
+    background-color: #000;
+    background-image: url("resources/bg1.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    font-family: var(--font-main);
+    color: #fff;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Dark overlay so the timer stays readable */
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.25);
+    z-index: 0;
+}
+
+/* ===== BUG LAYER ===== */
+.bug-layer {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 2;
+}
+
+.bug {
+    position: absolute;
+    top: 0;
+    left: 0;
+    will-change: transform;
+    filter: sepia(0.35) saturate(1.25) hue-rotate(-8deg) brightness(1.05) drop-shadow(0 4px 6px rgba(0, 0, 0, 0.35));
+}
+
+.bug-inner {
+    display: block;
+    width: 100%;
+    height: 100%;
+    will-change: transform;
+}
+
+@keyframes flap-butterfly {
+
+    0%,
+    100% {
+        transform: scaleX(1) translateY(0);
+    }
+
+    50% {
+        transform: scaleX(0.72) translateY(-2px);
+    }
+}
+
+.bug[data-type="butterfly"] .bug-inner {
+    animation: flap-butterfly 0.34s ease-in-out infinite;
+}
+
+/* ===== SCENE MANAGER ===== */
+.scene {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.6s ease;
+    z-index: 1;
+}
+
+.scene.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+#scene-transition-veil {
+    position: fixed;
+    inset: 0;
+    background: #000;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 100;
+    transition: opacity 900ms ease;
+}
+
+#scene-transition-veil.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+/* ===== COUNTDOWN TIMER ===== */
+.timer {
+    display: flex;
+    gap: 3rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem 1rem;
+    position: relative;
+    z-index: 3;
+}
+
+.time-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.number {
+    font-family: var(--font-timer);
+    font-weight: 700;
+    font-size: 6rem;
+    line-height: 1;
+    letter-spacing: 0.04em;
+
+    display: inline-block;
+
+    background: linear-gradient(180deg,
+            rgba(200, 218, 245, 0.50) 0%,
+            rgba(120, 140, 175, 0.42) 35%,
+            rgba(95, 115, 150, 0.40) 65%,
+            rgba(170, 190, 220, 0.48) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+
+    -webkit-text-stroke: 1.25px rgba(240, 248, 255, 0.75);
+
+    text-shadow:
+        0 -1px 1px rgba(255, 255, 255, 0.55),
+        0 2px 3px rgba(0, 0, 0, 0.45),
+        0 6px 16px rgba(0, 0, 0, 0.35);
+
+    user-select: none;
+}
+
+.label {
+    margin-top: 1.4rem;
+    font-size: 0.7rem;
+    letter-spacing: 0.35em;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.55);
+}
+
+/* ===== BG CROSSFADES ===== */
+#bg-2 {
+    position: fixed;
+    inset: 0;
+    background-image: url("resources/bg2.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 1.5s ease;
+    pointer-events: none;
+}
+
+#bg-2.active {
+    opacity: 1;
+}
+
+#bg-3 {
+    position: fixed;
+    inset: 0;
+    background-image: url("resources/bg3.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 2s ease;
+    pointer-events: none;
+}
+
+#bg-3.active {
+    opacity: 1;
+}
+
+/* ===== PHOTO GALLERY ===== */
+.photo-gallery {
+    position: fixed;
+    inset: 0;
+    background: #000;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 50;
+    transition: opacity 1s ease;
+    overflow: hidden;
+}
+
+.photo-gallery.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.photo-gallery .photo {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    opacity: 0;
+    transition: opacity 1s ease;
+    user-select: none;
+    -webkit-user-drag: none;
+}
+
+.photo-gallery .photo.visible {
+    opacity: 1;
+}
+
+.photo-final {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: #000;
+    opacity: 0;
+    transition: opacity 1.8s ease;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.photo-final.active {
+    opacity: 1;
+}
+
+.photo-final-line1,
+.photo-final-line2 {
+    font-family: "Fuzzy Bubbles", cursive;
+    font-weight: 700;
+    text-align: center;
+    line-height: 1.1;
+}
+
+.photo-final-line1 {
+    font-size: clamp(2rem, 6vw, 5rem);
+    color: #fff5e0;
+    margin-bottom: 0.6rem;
+    text-shadow: 0 0 30px rgba(255, 210, 130, 0.45);
+}
+
+.photo-final-line2 {
+    font-size: clamp(2.8rem, 9vw, 8rem);
+    color: #ffd77a;
+    text-shadow: 0 0 50px rgba(255, 180, 90, 0.65);
+}
+
+/* ===== MOBILE ===== */
+@media (max-width: 600px) {
+    .timer {
+        gap: 1.5rem;
+    }
+
+    .number {
+        font-size: 3.4rem;
+        -webkit-text-stroke: 1px rgba(240, 248, 255, 0.7);
+    }
+
+    .label {
+        font-size: 0.55rem;
+        letter-spacing: 0.2em;
+        margin-top: 0.9rem;
+    }
+}
+
+.hidden {
+    display: none !important;
+}

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Countdown</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <div id="bg-2"></div>
+  <div id="bg-3"></div>
+  <div id="scene-transition-veil"></div>
+
+  <audio id="song" src="resources/song.mp3" preload="auto" loop></audio>
+
+  <section class="scene active" id="scene-countdown">
+    <div class="bug-layer"></div>
+    <div class="timer">
+      <div class="time-block">
+        <span id="days" class="number">00</span>
+        <span class="label">Days</span>
+      </div>
+      <div class="time-block">
+        <span id="hours" class="number">00</span>
+        <span class="label">Hours</span>
+      </div>
+      <div class="time-block">
+        <span id="minutes" class="number">00</span>
+        <span class="label">Minutes</span>
+      </div>
+      <div class="time-block">
+        <span id="seconds" class="number">00</span>
+        <span class="label">Seconds</span>
+      </div>
+    </div>
+
+    <div class="photo-gallery" id="photo-gallery">
+      <img class="photo" id="photo-img" alt="">
+      <div class="photo-final" id="photo-final">
+        <div class="photo-final-line1">Happy Birthday</div>
+        <div class="photo-final-line2">Shubhangi</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="scene" id="scene-card"></section>
+
+  <script src="js-file/utils.js"></script>
+  <script src="js-file/swarm.js"></script>
+  <script src="js-file/countdown.js"></script>
+  <script src="js-file/card.js"></script>
+  <script src="js-file/scene-manager.js"></script>
+  <script src="js-file/boot.js"></script>
+
+</body>
+</html>
